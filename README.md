@@ -1,80 +1,66 @@
-# Mini-CRM-Demo-Power-Apps-Dataverse-Power-Automate-
-Overview
+Small demo CRM built to showcase practical skills with the Microsoft Power Platform:
+Dataverse (data modeling) • Model-Driven Apps (UI) • Business Rules (validation) • Power Automate (workflow automation).
 
-Small demo CRM built to show practical skills with Microsoft Power Platform: Dataverse (data modeling), Model-Driven Power Apps (UI), Business Rules (validation), and Power Automate (workflow automation).
-Purpose: demonstrate that I can design a CRM data model, enforce business logic, and automate notifications without writing code.
+The purpose is to demonstrate the ability to design a CRM data model, enforce business logic without code, and automate notifications.
 
-Data model
-
-Tables
-
+🧱 Data Model
+📌 Tables
 Leads
 
 Primary Name (Text)
-
 Email (Text)
-
 Phone (Text)
-
 Source (Text)
 
 Opportunities
 
 Opportunity Name (Primary)
-
 Amount (Currency)
-
 Stage (Choice: Prospecting, Proposal, Negotiation, Closed Won, Closed Lost)
-
 CloseDate (Date)
-
 Lead (Lookup → Leads)
 
-Relationship
+🔗 Relationship
 
 Leads (1) → Opportunities (N)
 One Lead can have many Opportunities (1:N lookup from Opportunities to Leads).
 
-Business Rule
+⚙️ Business Rule
 
-Rule: If Stage = Closed Won then set Amount to Required.
+Rule:
+If Stage = Closed Won, set Amount to Required.
 
-Purpose: enforce data quality so closed deals always include an amount (useful for forecasting and finance).
+Purpose:
+Maintains data quality so all closed-won deals include a value (important for forecasting and finance).
 
-Automation
+🔔 Automation (Power Automate)
 
-Flow name: Notify Closed Won Opportunity (Power Automate)
-
-Trigger: When a row is modified (Dataverse) — Table: Opportunities
+Flow Name: Notify Closed Won Opportunity
+Trigger: When a row is modified (Dataverse) — table: Opportunities
 Condition: Stage = Closed Won
-Action: Send an email notification (Outlook) with dynamic content from the opportunity (Name, Amount, CloseDate, Lead).
+Action: Send an email via Outlook with dynamic content:
 
-Purpose: simulate real operational alerting (sales/finance notifications) when deals close.
+Opportunity Name
 
-Screenshots (add to /screenshots)
+Amount
+CloseDate
+Lead Name
 
-leads-table.png — Leads table columns & sample data
+Purpose:
+Simulates real CRM alerting when a deal is closed.
 
-opportunities-table.png — Opportunities table columns & sample data
 
-relationship-1n.png — 1:N relationship UI showing lookup
+🚀 How to Run / Reproduce
 
-business-rule.png — Business Rule designer with the rule active
-
-power-automate-flow.png — Flow designer showing trigger, condition, and email action
-
-model-driven-app.png — Model-driven App running: list view of Leads & Opportunities
-
-How to run / reproduce (quick)
-
-Open Power Apps → Dataverse → create the two tables above (or import schema).
-
+Go to Power Apps → Dataverse and create the two tables above (or import schema).
 Create the 1:N relationship (Opportunities → Lead lookup).
+Build a Model-Driven App including Leads & Opportunities.
+Add and activate the Business Rule (Closed Won → Amount = required).
+In Power Automate, create the flow (row modified → condition → send email).
 
-Build a Model-Driven App including Leads and Opportunities.
+Test the flow:
 
-Add the Business Rule on Opportunities (Stage = Closed Won → Amount required) and activate it.
-
-In Power Automate, create the Notify Closed Won Opportunity flow (trigger: Dataverse row modified → condition → send email).
-
-Test: create a Lead, create an Opportunity, move Stage → Closed Won and verify the email arrives.
+Create a Lead
+Create an Opportunity
+Change Stage → Closed Won
+Verify the email is sent
